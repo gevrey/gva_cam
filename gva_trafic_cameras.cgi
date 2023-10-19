@@ -27,17 +27,14 @@ exit(0);
 sub printList {	
 	my $ua = LWP::UserAgent->new( );
 	$ua->timeout( 2 ) ;
-	my $res = $ua->get( $url );
 	my $content ;
-	if ( $res->content =~ /Unauthorized access/ ) {		
-		open(FILE, $filename) or die "Can't read file '$filename' [$!]\n";  
-		$content = <FILE>; 
-		close (FILE); 		
-	} else {
-		$content = $res->content ;
-	}
+	open(FILE, $filename) or die "Can't read file '$filename' [$!]\n";  
+	$content = <FILE>; 
+	close (FILE); 		
+
 	my $json = JSON->new->utf8;
-	my $perl_scalar = $json->decode( $content );		
+	my $perl_scalar = $json->decode( $content );
+	#print "<pre>", Dumper $perl_scalar, "</pre>" ; exit ;
 	my $camPerLine = 3 ;
 	my $camCount = 0 ;
 	print qq{<table border='0'>};
